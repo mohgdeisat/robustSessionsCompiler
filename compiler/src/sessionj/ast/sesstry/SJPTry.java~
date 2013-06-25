@@ -1,0 +1,8 @@
+// <By MQ> Added
+package sessionj.ast.sesstry;
+
+import polyglot.ast.*;
+
+public interface SJTry extends Try // Probably can collapse all sj-trys into one entity.
+{
+}
