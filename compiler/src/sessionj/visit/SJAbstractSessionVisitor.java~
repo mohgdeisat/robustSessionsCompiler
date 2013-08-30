@@ -396,6 +396,7 @@ abstract public class SJAbstractSessionVisitor extends ContextVisitor
 				}
 				else //if (n instanceof SJInbranch)
 				{
+				    System.out.println("SJAbstractSessionVisitor: pushSJBranchOperation");
 					sjcontext.pushSJBranchOperation((SJBranchOperation) n);
 				}
 				//<By MQ> MQTODO: add sjptry here

@@ -219,7 +219,7 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
     }
 
     public SJPTry SJPTry(Position pos, Block tryBlock, List catches) {
-	return new SJPTry(pos, tryBlock, catches, null);
+	return new SJPTry_c(pos, tryBlock, catches, null);
     }
 
     // SJPCatch SJPCatch(Position pos, TypeNode exceptionType, Block catchBlock) {

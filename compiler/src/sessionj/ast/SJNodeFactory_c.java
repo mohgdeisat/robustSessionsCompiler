@@ -48,8 +48,7 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 	//private SJDelFactory sjdf = (SJDelFactory) super.delFactory();
         private List<Id> participantsList; //<By MQ>
         private Id participant; //<By MQ>
-    public SJTypeNode unoptimizedProtocol;  //<By MQ>
-    public SJTypeNode optimizedProtocol;  //<By MQ>
+    private SJTypeNode globalProtocol; //<By MQ>
 	public SJNodeFactory_c()
 	{
 		super(new SJExtFactory_c());
@@ -122,12 +121,12 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
 		    ((SJBranchNode_c)tn).branchCases().add(new SJBranchCaseNode_c(bc.position(), bc.label(), bcbody));
 		}
 	    }
-	    return tn;	    
+	    return tn.child(cleanupProtocol(tn.child()));	    
 	}
 	else if(tn instanceof SJLoopNode)
 	{
 	    ((SJLoopNode)tn).body(cleanupProtocol(((SJLoopNode)tn).body()));
-	    return tn;
+	    return tn.child(cleanupProtocol(tn.child()));
 	}
 	else
 	    return tn.child(cleanupProtocol(tn.child()));
@@ -202,11 +201,13 @@ public class SJNodeFactory_c extends NodeFactory_c implements SJNodeFactory
     public SJTypeNode optimizeProtocol(SJTypeNode tn)
     {	
 	//unoptimizedProtocol = convertToGProtocol((SJTypeNode)tn.position(tn.position()));
+	//globalProtocol = (SJTypeNode)tn.position(tn.position());
 	//SJTypeNode otn = cleanupProtocol((SJTypeNode)tn.position(tn.position()));
 	//System.out.println("\n\nbefore cleanup: " + tn);
 	//System.out.println("\n\ngprotocol: " + unoptimizedProtocol);
 	//System.out.println("\n\nafter cleanup: " + otn);
-	System.out.println(tn);
+	//System.out.println("Global Protocol: " + globalProtocol);
+	//System.out.println("Local Protocol: " + otn);
 	return tn;
     }
 

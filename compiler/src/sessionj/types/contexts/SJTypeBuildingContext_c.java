@@ -776,7 +776,7 @@ public class SJTypeBuildingContext_c extends SJContext_c implements SJTypeBuildi
             // (Now not necessary? Since channels must be na-final, so cannot assign different
             // values across branches, or even use after being received in a branch - but this may be too restrictive).  
 			{
-        pullUpBranchContext(poppedContext, current);
+			    pullUpBranchContext(poppedContext, current);
 			}
 			else
 			{			
@@ -794,14 +794,13 @@ public class SJTypeBuildingContext_c extends SJContext_c implements SJTypeBuildi
 				for (String sjname : poppedContext.activeSessions())
 				{				
 					SJSessionType implemented = poppedContext.getImplemented(sjname);
-					
 					if (current.sessionActive(sjname))
           // Can be not in scope but still active for e.g. try (s) { try { try (s) { ... 
 					{
 						if (poppedContext instanceof SJSessionTryContext) // FIXME: make SJSessionTryContext a SJSessionContext.
 						{
-              handleSessionTryContext(poppedContext, sjname);
-            }
+						    handleSessionTryContext(poppedContext, sjname);
+						}
 						
 						if (poppedContext instanceof SJSessionContext)
 						{																				
@@ -810,7 +809,7 @@ public class SJTypeBuildingContext_c extends SJContext_c implements SJTypeBuildi
 							if (sc.targets().contains(sjname)) // Need to build back the type structure that was stripped when the compound operation context was entered.
 							{							
 								SJSessionType expected = poppedContext.getActive(sjname);							
-																 
+
 								// FIXME: should treate typecase contexts just like branch contexts. 
 								// FIXME: when branches in a typecase do not properly advance session types of sockets other than the one the typecase is acting on. 
 								// Need to handle those the same way as branch contexts.
@@ -818,21 +817,24 @@ public class SJTypeBuildingContext_c extends SJContext_c implements SJTypeBuildi
 				        if (expected != null && !(poppedContext instanceof SJTypecaseContext)) // Maybe can be better factored out with above check for branch contexts and below check.
 								{
                   // No need to check for delegated types here because delegation within a branch must be terminal (and delegateSession clears the active type).
-                  throw new SemanticException("[SJTypeBuildingContext_c] Session " + sjname + " incomplete [4], expected: " + expected);
+					    throw new SemanticException("[SJTypeBuildingContext_c] Session " + sjname + " incomplete [4], expected: " + expected);
                 }
 
                 if (poppedContext instanceof SJSessionBranchContext)
-								{
-									// SJInbranch (and SJInbranchCase) done above with branch merging.
-								}
-								else if (poppedContext instanceof SJOutbranchContext)
-								{
-                  implemented = handleOutbranchContext(poppedContext, implemented);
-		  								}
-								else if (poppedContext instanceof SJSessionLoopContext)
-								{
-                  implemented = handleSessionLoopContext(sjname, implemented, ((SJSessionContext) poppedContext).node());
-                }
+		    {
+			// SJInbranch (and SJInbranchCase) done above with branch merging.
+			//System.out.println("branch active1: " + poppedContext.getActive(sjname));
+		    }
+		else if (poppedContext instanceof SJOutbranchContext)
+		    {
+			implemented = handleOutbranchContext(poppedContext, implemented);
+			//System.out.println("branch active2: " + poppedContext.getActive(sjname));
+		    }
+		else if (poppedContext instanceof SJSessionLoopContext)
+		    {
+			//System.out.println("loop active: " + poppedContext.getActive(sjname));
+			implemented = handleSessionLoopContext(sjname, implemented, ((SJSessionContext) poppedContext).node());
+		    }
                 else if (poppedContext instanceof SJTypecaseContext) // FIXME: should treate typecase contexts just like branch contexts.
                 {
                   //implemented = ((SJTypecaseContext) poppedContext).getActiveSetType();
@@ -1004,9 +1006,10 @@ public class SJTypeBuildingContext_c extends SJContext_c implements SJTypeBuildi
                     implemented = sjts.SJOutwhileType(implemented);
                 }
             }
-            else
+            else if(co instanceof SJInwhile)
             {
                 implemented = sjts.SJInwhileType(implemented, ((SJInwhile_c)co).arguments().get(0).toString().replace("\"", "")); //<By MQ> MQTODO: We need the target from the protocol, not from the implementation. FIX THIS
+		
             }
         }
         else //if (co instanceof SJRecursion)

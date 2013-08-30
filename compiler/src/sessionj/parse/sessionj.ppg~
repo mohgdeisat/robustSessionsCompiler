@@ -201,7 +201,7 @@ non terminal SJTypeNode sj_field_participant_declaration;
 non terminal TypeNode optional_exception;
 non terminal SJPCatchNode pcatch_node;
 non terminal List pcatch_list;
-non terminal SJPTryNode ptry_pcatch_node;
+non terminal SJTypeNode ptry_pcatch_node;
 //for exceptions: code elements
 non terminal Stmt ptry_statement;
 //</By MQ>
@@ -617,6 +617,8 @@ pcatch_list ::= pcatch_node:a
 ptry_pcatch_node ::= SJ_PTRY:a LBRACE sj_gsession_type_body:b RBRACE pcatch_list:c
 {:
 	RESULT = parser.nf.SJPTryNode(parser.pos(a, c), b, c);
+	for(Object pc : c)
+		RESULT = RESULT.child((SJPCatchNode)pc);
 :};
 //</By MQ>
 

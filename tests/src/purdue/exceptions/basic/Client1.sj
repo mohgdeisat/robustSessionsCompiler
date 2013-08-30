@@ -14,7 +14,7 @@ public class Client1{
 		.client1: begin
 		.client1->client2: <String>
 		.ptry {
-		      client1->client2:<Double> | <Exception>
+		        client1->client2:<Double> | <Exception>
 		}
 		pcatch(Exception) {
 			client2->client1: <String>

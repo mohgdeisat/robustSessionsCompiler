@@ -42,7 +42,7 @@ private final noalias protocol invitation {
                                 Double d = (Double)client1Socket.receive("client1");
                                 Double d2 = (Double)client1Socket.receive("client1");
 				System.out.println("Client2 received:\nString: " + str + "\nInteger: " + ii + "\nDouble1: " + d + "\nDouble2: " + d2);
-				client1Socket.inwhile("client3")
+				client1Socket.inwhile("client1")
 				{
 					Integer i = (Integer)client1Socket.receive("client1");
 					System.out.println("Received: " + i);

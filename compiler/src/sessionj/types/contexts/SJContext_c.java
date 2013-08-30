@@ -481,7 +481,6 @@ public class SJContext_c extends SJContext // Currently only used by SJAbstractS
 		for (String sjname : sjnames)
 		{
 			SJSessionType st = current.getActive(sjname);	
-			
 			openSession(sjname, ((SJLoopType) st).body());
 		}
 	}

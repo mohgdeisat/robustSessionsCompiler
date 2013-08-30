@@ -32,7 +32,6 @@ public class Client{
            .DS -> Client: <String>  //5a. Redirect Client to the SP.      
            ,noDiscovery: //The discovery process is skipped.
         }
-	.SP -> IdP: <Integer> //***********************TEST*****************************Remove this
         .Client -> SP: <String> //5b
       	.SP -> Client: <String> //6a. The SP redirects Client to the IdP.
       	.Client: [//retry loop

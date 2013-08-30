@@ -78,7 +78,7 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
 	}
 	
 	protected Node leaveCall(Node parent, Node old, Node n, NodeVisitor v) throws SemanticException
-	{				
+	{		
 		SJContextElement ce = leaveSJContext(n);
         // Does type checking for compound operations and session-try, etc.
         // Basically, doesn't do anything (no context is popped) for basic operations and so on (the stuff that follows this).
@@ -888,7 +888,7 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
 			if(target.equals(expectedTarget) == false)
 			{
 			    throw new SemanticException("[SJSessionTypeChecker.checkSJCompoundOperation]: Unexpected operation target: Expected: " + expectedTarget + ", not: " + target);
-			}
+			}			
 		    }
 		   
             // Nothing to check: correct compound type constructor checked on context push, and
@@ -918,7 +918,7 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
 			}
 		    }
 		}
-		 //</By MQ>
+		//</By MQ>
         else if (co instanceof SJTypecase)
         {
             co = ((SJTypecase) co).sessionTypeCheck(typeForNode);
@@ -1188,7 +1188,6 @@ public class SJSessionTypeChecker extends ContextVisitor // Maybe factor out an 
 			//<By MQ> We need to push the context of PTry
 			else if(n instanceof SJPTry) {
 			    sjcontext.pushSJPTry((SJPTry) n);
-			    System.out.println("Try*************");
 			}
 			//</By MQ>
 			else
