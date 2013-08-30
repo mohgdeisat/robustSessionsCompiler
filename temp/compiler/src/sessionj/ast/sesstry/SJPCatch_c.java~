@@ -1,0 +1,14 @@
+package sessionj.ast.sesstry;
+
+import java.util.List;
+
+import polyglot.ast.*;
+import polyglot.util.Position;
+
+abstract public class SJPCatch_c extends Catch_c implements SJPCatch
+{
+    public SJPTry_c(Position pos, Block tryBlock, List catchBlocks, Block finallyBlock)
+    {
+        super(pos, tryBlock, catchBlocks, finallyBlock);
+    }
+}

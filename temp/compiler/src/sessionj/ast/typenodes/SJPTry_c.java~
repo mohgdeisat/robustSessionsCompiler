@@ -1,0 +1,16 @@
+package sessionj.ast.sesstry;
+
+import java.util.List;
+
+import polyglot.ast.*;
+import polyglot.util.Position;
+
+abstract public class SJPTry_c extends Try_c implements SJPTry
+{
+    private SJTypeNode body;
+    public SJPTry_c(Position pos, Block tryBlock, List catchBlocks, Block finallyBlock, SJTypeNode body)
+    {
+	super(pos, tryBlock, catchBlocks, finallyBlock);
+	this.body = body;
+    }
+}
